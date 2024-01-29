@@ -51,7 +51,7 @@ permissions:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'IaC-Automation'
     runs-on: self-hosted
     environment: production
 
