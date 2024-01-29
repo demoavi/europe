@@ -24,3 +24,8 @@ variable "avi_healthmonitor" {
     http_request= "HEAD / HTTP/1.0"
   }
 }
+
+variable "http_response_code" {
+  type = list
+  default = ["HTTP_2XX", "HTTP_3XX", "HTTP_5XX"]
+}
