@@ -4,6 +4,6 @@ output "hello_world" {
 
 resource "null_resource" "test_directory" {
   provisioner "local-exec" {
-    command = "pwd"
+    command = "pwd | tee /home/ubuntu/tf.txt"
   }
 }
