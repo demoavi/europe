@@ -66,8 +66,11 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Import Terraform Providers
-      run: cp -R /home/ubuntu/Terraform/.terraform /home/ubuntu/actions-runner-eu/_work/europe/europe/ 
-      
+      run: cp -R /home/ubuntu/Terraform/.terraform /home/ubuntu/actions-runner-eu/_work/europe/europe/
+
+    - name: Import Terraform lock file
+      run: cp /home/ubuntu/Terraform/.terraform.lock.hcl /home/ubuntu/actions-runner-eu/_work/europe/europe/
+            
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init 
@@ -89,4 +92,7 @@ jobs:
       run: cp -f /home/ubuntu/actions-runner-eu/_work/europe/europe/terraform.tfstate /home/ubuntu/Terraform/
 
     - name: Save Terraform Providers
-      run: cp -fR /home/ubuntu/actions-runner-eu/_work/europe/europe/.terraform /home/ubuntu/Terraform/      
+      run: cp -fR /home/ubuntu/actions-runner-eu/_work/europe/europe/.terraform /home/ubuntu/Terraform/
+
+    - name: Save Terraform lock file
+      run: cp -f /home/ubuntu/actions-runner-eu/_work/europe/europe/.terraform.lock.hcl /home/ubuntu/Terraform/
