@@ -8,11 +8,14 @@ variable "avi_cloud" {
   default = "Default-Cloud"
 }
 
-variable "healthmonitor" {
+variable "avi_count" {
+  default = 1
+}
+
+variable "avi_healthmonitor" {
   type = map
   default = {
     basename = "github-hm-"
-    count = 1
     type = "HEALTH_MONITOR_HTTP"
     receive_timeout = "1"
     failed_checks = "2"
