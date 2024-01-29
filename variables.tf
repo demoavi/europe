@@ -9,7 +9,7 @@ variable "avi_cloud" {
 }
 
 variable "avi_count" {
-  default = 0
+  default = 20
 }
 
 variable "avi_healthmonitor" {
