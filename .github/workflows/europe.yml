@@ -51,4 +51,4 @@ jobs:
       run: cp -fR /home/ubuntu/actions-runner-eu/_work/europe/europe/.terraform /home/ubuntu/Terraform/
 
     - name: Save  lock file
-      run: cp -f /home/ubuntu/actions-runner-eu/_work/europe/europe/..lock.hcl /home/ubuntu//
+      run: cp -f /home/ubuntu/actions-runner-eu/_work/europe/europe/.lock.hcl /home/ubuntu/Terraform/
