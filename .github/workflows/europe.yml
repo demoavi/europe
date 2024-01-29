@@ -65,9 +65,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Import Terraform Providers
+      run: cp -R /home/ubuntu/Terraform/.terraform /home/ubuntu/actions-runner-eu/_work/europe/europe/ 
+      
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
+      run: terraform init 
 
     - name: Import Terraform State
       run: cp /home/ubuntu/Terraform/terraform.tfstate /home/ubuntu/actions-runner-eu/_work/europe/europe/     
@@ -83,4 +86,7 @@ jobs:
       run: terraform apply -auto-approve -var-file=/home/ubuntu/.avicreds-europe.json
 
     - name: Save Terraform State
-      run: cp /home/ubuntu/actions-runner-eu/_work/europe/europe/terraform.tfstate /home/ubuntu/Terraform/
+      run: cp -f /home/ubuntu/actions-runner-eu/_work/europe/europe/terraform.tfstate /home/ubuntu/Terraform/
+
+    - name: Save Terraform Providers
+      run: cp -fR /home/ubuntu/actions-runner-eu/_work/europe/europe/.terraform /home/ubuntu/Terraform/      
