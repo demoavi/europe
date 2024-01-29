@@ -69,6 +69,9 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
+    - name: Import Terraform State
+      run: cp /home/ubuntu/Terraform/terraform.tfstate /home/ubuntu/actions-runner-eu/_work/europe/europe/     
+
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -var-file=/home/ubuntu/.avicreds-europe.json
@@ -78,3 +81,6 @@ jobs:
     - name: Terraform Apply
       # if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -var-file=/home/ubuntu/.avicreds-europe.json
+
+    - name: Save Terraform State
+      run: cp /home/ubuntu/actions-runner-eu/_work/europe/europe/terraform.tfstate /home/ubuntu/Terraform/
