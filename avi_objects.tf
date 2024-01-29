@@ -1,6 +1,6 @@
 resource "avi_healthmonitor" "hm" {
   count = var.avi_count
-  name = "${var.avi_healthmonitor.basename}${count.index}"
+  name = "${var.avi_healthmonitor.basename}${count.index + 1 }"
   tenant_ref = data.avi_tenant.tenant[count.index].id
   type = var.avi_healthmonitor.type
   receive_timeout = var.avi_healthmonitor.receive_timeout
