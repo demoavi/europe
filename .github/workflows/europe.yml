@@ -21,8 +21,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Import  Providers
-      run: cp -R /home/ubuntu/.terraform /home/ubuntu/actions-runner-eu/_work/europe/europe/
+    - name: Import Providers
+      run: cp -R /home/ubuntu/Terraform/.terraform /home/ubuntu/actions-runner-eu/_work/europe/europe/
 
     - name: Import Terraform lock file
       run: cp /home/ubuntu/Terraform/.terraform.lock.hcl /home/ubuntu/actions-runner-eu/_work/europe/europe/
