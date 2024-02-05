@@ -61,3 +61,20 @@ resource "avi_vsvip" "vsvip" {
     fqdn = "${var.avi_vsvip.basename}${count.index + 1 }.${var.avi_domain_name}"
   }
 }
+
+resource "avi_virtualservice" "https_vs" {
+  count = var.avi_count
+  name = "${var.avi_virtualservice.basename}${count.index + 1 }"
+  pool_ref = avi_pool.pool[count.index].id
+  cloud_ref = data.avi_cloud.default_cloud.id
+  tenant_ref = data.avi_tenant.tenant[count.index].id
+  ssl_key_and_certificate_refs = [data.avi_sslkeyandcertificate.ssl_cert.id]
+  ssl_profile_ref = data.avi_sslprofile.ssl_profile.id
+  application_profile_ref = data.avi_applicationprofile.application_profile.id
+  network_profile_ref = data.avi_networkprofile.network_profile.id
+  vsvip_ref= avi_vsvip.vsvip[count.index].id
+  services {
+    port           = var.avi_virtualservice.port
+    enable_ssl     = var.avi_virtualservice.ssl
+  }
+}
