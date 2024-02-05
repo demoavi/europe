@@ -45,14 +45,14 @@ resource "avi_vsvip" "vsvip" {
     vip_id = 1
     auto_allocate_floating_ip = true
     auto_allocate_ip = true
-    availability_zone = "eu-west-2a"
+    availability_zone = var.avi_vsvip.availability_zone
     enabled = true
     ipam_network_subnet {
       subnet {
-        mask = 22
+        mask = var.avi_vsvip.mask
         ip_addr {
-          type = "V4"
-          addr = "10.0.20.0"
+          type = var.avi_vsvip.type
+          addr = var.avi_vsvip.addr
         }
       }
     }
