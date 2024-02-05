@@ -6,7 +6,7 @@ variable "avi_tenant" {
   type = map
   default = {
     basename = "tenant00"
-    deafult = "admin"
+    default = "admin"
   }
 }
 
