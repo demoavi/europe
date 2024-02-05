@@ -16,7 +16,7 @@ resource "avi_healthmonitor" "hm" {
 resource "avi_pool" "pool" {
   count = var.avi_count
   name = "${var.avi_pool.basename}${count.index + 1 }"
-  tenant_ref = data.avi_tenant.tenant.id
+  tenant_ref = data.avi_tenant.tenant[count.index].id
   lb_algorithm = var.pool.lb_algorithm
   cloud_ref = data.avi_cloud.default_cloud.id
   health_monitor_refs = ["${data.avi_healthmonitor.hm[count.index].id}"]
