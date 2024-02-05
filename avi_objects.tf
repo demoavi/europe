@@ -30,7 +30,7 @@ resource "avi_pool" "pool" {
   tenant_ref = avi_tenant.tenant[count.index].id
   lb_algorithm = var.avi_pool.lb_algorithm
   cloud_ref = data.avi_cloud.default_cloud.id
-  health_monitor_refs = ["${data.avi_healthmonitor.hm[count.index].id}"]
+  health_monitor_refs = ["${avi_healthmonitor.hm[count.index].id}"]
   dynamic servers {
     for_each = [for server in var.avi_servers:{
       addr = server.ip
