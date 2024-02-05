@@ -15,7 +15,7 @@ variable "avi_cloud" {
 }
 
 variable "avi_create" {
-  default = false
+  default = true
 }
 
 variable "avi_healthmonitor" {
