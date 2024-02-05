@@ -9,7 +9,7 @@ variable "avi_cloud" {
 }
 
 variable "avi_count" {
-  default = 4
+  default = 0
 }
 
 variable "avi_healthmonitor" {
@@ -67,6 +67,10 @@ variable "avi_vsvip" {
   type = map
   default = {
     basename = "github-vsvip-"
+    availability_zone = "eu-west-2a"
+    subnet = "10.0.20.0"
+    addr = 22
+    type = "V4"
   }
 }
 
