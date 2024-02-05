@@ -10,6 +10,7 @@ resource "avi_tenant" "tenant" {
 
 
 resource "avi_healthmonitor" "hm" {
+  depends_on = [avi_tenant.tenant]
   count = var.avi_create == true ? length(var.attendees_list) : 0
   name = "${var.avi_tenant.basename}${count.index + 1 }-${var.avi_healthmonitor.basename}"
   tenant_ref = "/api/tenant/${var.avi_tenant.basename}${count.index + 1 }"
@@ -25,6 +26,7 @@ resource "avi_healthmonitor" "hm" {
 }
 
 resource "avi_pool" "pool" {
+  depends_on = [avi_tenant.tenant]
   count = var.avi_create == true ? length(var.attendees_list) : 0
   name = "${var.avi_tenant.basename}${count.index + 1 }-${var.avi_pool.basename}"
   tenant_ref = "/api/tenant/${var.avi_tenant.basename}${count.index + 1 }"
@@ -48,6 +50,7 @@ resource "avi_pool" "pool" {
 }
 
 resource "avi_vsvip" "vsvip" {
+  depends_on = [avi_tenant.tenant]
   count = var.avi_create == true ? length(var.attendees_list) : 0
   name = "${var.avi_tenant.basename}${count.index + 1 }-${var.avi_vsvip.basename}"
   tenant_ref = "/api/tenant/${var.avi_tenant.basename}${count.index + 1 }"
@@ -74,6 +77,7 @@ resource "avi_vsvip" "vsvip" {
 }
 
 resource "avi_virtualservice" "https_vs" {
+  depends_on = [avi_tenant.tenant]
   count = var.avi_create == true ? length(var.attendees_list) : 0
   name = "${var.avi_tenant.basename}${count.index + 1 }-${var.avi_virtualservice.basename}"
   pool_ref = avi_pool.pool[count.index].id
