@@ -35,3 +35,30 @@ resource "avi_pool" "pool" {
     }
   }
 }
+
+resource "avi_vsvip" "vsvip" {
+  count = var.avi_count
+  name = "${var.avi_vsvip.basename}${count.index + 1 }"
+  tenant_ref = data.avi_tenant.tenant[count.index].id
+  cloud_ref = data.avi_cloud.default_cloud.id
+  vip {
+    vip_id = 1
+    auto_allocate_floating_ip = true
+    auto_allocate_ip = true
+    availability_zone = "eu-west-2a"
+    enabled = true
+    ipam_network_subnet {
+      network_ref = "https://europe.academy.demoavi.us/api/network/subnet-077f1b8c0cc96d74b"
+      subnet {
+        mask = 22
+        ip_addr {
+          type = "V4"
+          addr = "10.0.20.0"
+        }
+      }
+    }
+  }
+  dns_info {
+    fqdn = "${var.avi_vsvip.basename}${count.index + 1 }.${var.avi_domain_name}"
+  }
+}
