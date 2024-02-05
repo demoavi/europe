@@ -1,21 +1,26 @@
 variable "avi_credentials" {}
 
+variable "attendees_list" {}
+
 variable "avi_tenant" {
-  default = "admin"
+  type = map
+  default = {
+    basename = "tenant00"
+  }
 }
 
 variable "avi_cloud" {
   default = "Default-Cloud"
 }
 
-variable "avi_count" {
-  default = 0
+variable "avi_create" {
+  default = true
 }
 
 variable "avi_healthmonitor" {
   type = map
   default = {
-    basename = "github-hm-"
+    basename = "github-hm"
     type = "HEALTH_MONITOR_HTTP"
     receive_timeout = "1"
     failed_checks = "2"
@@ -58,7 +63,7 @@ variable "avi_servers" {
 variable "avi_pool" {
   type = map
   default = {
-    basename = "github-pool-"
+    basename = "github-pool"
     lb_algorithm = "LB_ALGORITHM_ROUND_ROBIN"
   }
 }
@@ -66,7 +71,7 @@ variable "avi_pool" {
 variable "avi_vsvip" {
   type = map
   default = {
-    basename = "github-vsvip-"
+    basename = "github-vsvip"
     availability_zone = "eu-west-2a"
     addr = "10.0.20.0"
     mask = 22
@@ -81,7 +86,7 @@ variable "avi_domain_name" {
 variable "avi_virtualservice" {
   type = map
   default = {
-    basename = "github-vs-"
+    basename = "github-vs"
     port = "443"
     ssl = "true"
     applicationProfile = "System-Secure-HTTP"
