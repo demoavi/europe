@@ -1,7 +1,18 @@
+resource "avi_tenant" "tenant" {
+  count = var.avi_create == true ? length(var.attendees_list) : 0
+  name = "${var.avi_tenant.basename}${count.index + 1 }"
+  config_settings {
+    tenant_vrf = false
+    se_in_provider_context = false
+    tenant_access_to_provider_se = false
+  }
+}
+
+
 resource "avi_healthmonitor" "hm" {
-  count = var.avi_count
-  name = "${var.avi_healthmonitor.basename}${count.index + 1 }"
-  tenant_ref = data.avi_tenant.tenant[count.index].id
+  count = var.avi_create == true ? length(var.attendees_list) : 0
+  name = "${var.avi_tenant.basename}${count.index + 1 }${var.avi_healthmonitor.basename}"
+  tenant_ref = avi_tenant.tenant[count.index].id
   type = var.avi_healthmonitor.type
   receive_timeout = var.avi_healthmonitor.receive_timeout
   failed_checks = var.avi_healthmonitor.failed_checks
@@ -14,9 +25,9 @@ resource "avi_healthmonitor" "hm" {
 }
 
 resource "avi_pool" "pool" {
-  count = var.avi_count
-  name = "${var.avi_pool.basename}${count.index + 1 }"
-  tenant_ref = data.avi_tenant.tenant[count.index].id
+  count = var.avi_create == true ? length(var.attendees_list) : 0
+  name = "${var.avi_tenant.basename}${count.index + 1 }${var.avi_pool.basename}"
+  tenant_ref = avi_tenant.tenant[count.index].id
   lb_algorithm = var.avi_pool.lb_algorithm
   cloud_ref = data.avi_cloud.default_cloud.id
   health_monitor_refs = ["${data.avi_healthmonitor.hm[count.index].id}"]
@@ -37,9 +48,9 @@ resource "avi_pool" "pool" {
 }
 
 resource "avi_vsvip" "vsvip" {
-  count = var.avi_count
-  name = "${var.avi_vsvip.basename}${count.index + 1 }"
-  tenant_ref = data.avi_tenant.tenant[count.index].id
+  count = var.avi_create == true ? length(var.attendees_list) : 0
+  name = "${var.avi_tenant.basename}${count.index + 1 }${var.avi_vsvip.basename}"
+  tenant_ref = avi_tenant.tenant[count.index].id
   cloud_ref = data.avi_cloud.default_cloud.id
   vip {
     vip_id = 1
@@ -63,11 +74,11 @@ resource "avi_vsvip" "vsvip" {
 }
 
 resource "avi_virtualservice" "https_vs" {
-  count = var.avi_count
-  name = "${var.avi_virtualservice.basename}${count.index + 1 }"
+  count = var.avi_create == true ? length(var.attendees_list) : 0
+  name = "${var.avi_tenant.basename}${count.index + 1 }${var.avi_virtualservice.basename}"
   pool_ref = avi_pool.pool[count.index].id
   cloud_ref = data.avi_cloud.default_cloud.id
-  tenant_ref = data.avi_tenant.tenant[count.index].id
+  tenant_ref = avi_tenant.tenant[count.index].id
   ssl_key_and_certificate_refs = [data.avi_sslkeyandcertificate.ssl_cert.id]
   ssl_profile_ref = data.avi_sslprofile.ssl_profile.id
   application_profile_ref = data.avi_applicationprofile.application_profile.id
