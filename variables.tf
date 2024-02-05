@@ -77,3 +77,16 @@ variable "avi_vsvip" {
 variable "avi_domain_name" {
   default = "demoavi.us"
 }
+
+variable "avi_virtualservice" {
+  type = map
+  default = {
+    basename = "github-vs-"
+    port = "443"
+    ssl = "true"
+    applicationProfile = "System-Secure-HTTP"
+    networkProfile = "System-TCP-Proxy"
+    sslProfile = "System-Standard"
+    sslCert = "System-Default-Cert"
+  }
+}
