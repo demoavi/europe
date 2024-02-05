@@ -1,3 +1,9 @@
+data "avi_tenant" "tenant" {
+  depends_on = [avi_tenant.tenant]
+  count = var.avi_create == true ? length(var.attendees_list) : 0
+  name = "${var.avi_tenant.basename}${count.index + 1 }"
+}
+
 data "avi_cloud" "default_cloud" {
   name = var.avi_cloud
 }
