@@ -68,8 +68,8 @@ variable "avi_vsvip" {
   default = {
     basename = "github-vsvip-"
     availability_zone = "eu-west-2a"
-    subnet = "10.0.20.0"
-    addr = 22
+    addr = "10.0.20.0"
+    mask = 22
     type = "V4"
   }
 }
