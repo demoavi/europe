@@ -63,6 +63,13 @@ variable "avi_pool" {
   }
 }
 
+variable "avi_vsvip" {
+  type = map
+  default = {
+    basename = "github-vsvip-"
+  }
+}
+
 variable "avi_domain_name" {
   default = "demoavi.us"
 }
