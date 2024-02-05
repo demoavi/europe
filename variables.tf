@@ -62,3 +62,7 @@ variable "avi_pool" {
     lb_algorithm = "LB_ALGORITHM_ROUND_ROBIN"
   }
 }
+
+variable "avi_domain_name" {
+  default = "demoavi.us"
+}
