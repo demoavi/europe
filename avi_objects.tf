@@ -48,7 +48,6 @@ resource "avi_vsvip" "vsvip" {
     availability_zone = "eu-west-2a"
     enabled = true
     ipam_network_subnet {
-      network_ref = "https://europe.academy.demoavi.us/api/network/subnet-077f1b8c0cc96d74b"
       subnet {
         mask = 22
         ip_addr {
